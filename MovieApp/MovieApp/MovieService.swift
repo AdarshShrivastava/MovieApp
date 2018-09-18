@@ -12,6 +12,7 @@ protocol ServiceDelegate:class{
     func MovieList(movieList: [MovieHome])
 }
 
+
 class MovieService{
     
     weak var movieHomeDelegate:ServiceDelegate?
@@ -28,7 +29,7 @@ class MovieService{
                 return
             
         }
-            //print(json)
+            // print(json)
            self.movieListArray = [MovieHome]()
             
             if let movieArray = moviesJson["results"] as? NSArray{
@@ -39,6 +40,7 @@ class MovieService{
                         print(movieDictionary["backdrop_path"]!)
                         movieHomeObject.thumbNailImageLink = (movieDictionary["backdrop_path"]!) as? String
                         movieHomeObject.title = (movieDictionary["original_title"]!) as? String
+                         movieHomeObject.movieId = movieDictionary["id"] as? Int64
                     }
                     self.movieListArray?.append(movieHomeObject)
                 }
@@ -48,4 +50,5 @@ class MovieService{
         }
         task.resume()
     }
-}
+    
+    }

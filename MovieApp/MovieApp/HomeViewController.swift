@@ -21,8 +21,6 @@ class HomeViewController: UIViewController, UICollectionViewDelegate,UICollectio
         movieHomeCollectionView.delegate = self
         movieHomeCollectionView.dataSource = self
         MovieListViewModelObject.movieListViewModelDelegate = self
-        
-
     }
     
     func movieListViewModel(movieList:[MovieHome]){
@@ -32,10 +30,9 @@ class HomeViewController: UIViewController, UICollectionViewDelegate,UICollectio
         }
         movieListArray = [MovieHome]()
         movieListArray = movieList
-        DispatchQueue.main.async {
+         DispatchQueue.main.async {
             self.movieHomeCollectionView.reloadData()
-        }
-        // movieHomeCollectionView.reloadData()
+         }
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
@@ -57,8 +54,9 @@ class HomeViewController: UIViewController, UICollectionViewDelegate,UICollectio
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let detailViewController = storyboard?.instantiateViewController(withIdentifier: "Details")
-        self.navigationController?.pushViewController(detailViewController!, animated: true)
+        let detailViewController = storyboard?.instantiateViewController(withIdentifier: "Details") as! DetailsViewController
+        detailViewController.movieId = self.movieListArray[indexPath.row].movieId
+        self.navigationController?.pushViewController(detailViewController, animated: true)
     }
 
 }

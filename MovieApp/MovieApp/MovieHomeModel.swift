@@ -12,6 +12,7 @@ import UIKit
 struct MovieHome{
     var thumbNailImageLink:String?
     var title:String?
+    var movieId: Int64?
 }
 
 struct MovieDetails{
