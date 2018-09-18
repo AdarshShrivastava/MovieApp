@@ -7,3 +7,27 @@
 //
 
 import Foundation
+
+protocol MovieListViewModelDelegate:class{
+    func movieListViewModel(movieList:[MovieHome])
+}
+
+class HomeViewModel:ServiceDelegate{
+    weak var movieListViewModelDelegate:MovieListViewModelDelegate?
+    var MovieListObject = MovieService()
+    
+    
+    init(){
+        MovieListObject.movieHomeDelegate = self
+    }
+    
+    func callMovieListAPI(){
+        MovieListObject.callMovieHomeApi()
+    }
+    
+    func MovieList(movieList: [MovieHome]){
+        self.movieListViewModelDelegate?.movieListViewModel(movieList: movieList)
+    }
+    
+    
+}

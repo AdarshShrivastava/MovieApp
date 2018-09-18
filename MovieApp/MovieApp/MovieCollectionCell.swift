@@ -10,4 +10,6 @@ import UIKit
 
 class MovieCollectionCell: UICollectionViewCell {
     
+    @IBOutlet weak var movieTitle: UILabel!
+    @IBOutlet weak var movieThumbNailImage: UIImageView!
 }

@@ -60,6 +60,10 @@
                                             <constraint firstItem="don-xN-PNb" firstAttribute="top" secondItem="1bU-Q9-UvN" secondAttribute="bottom" constant="-1" id="iUg-AI-0Rf"/>
                                             <constraint firstAttribute="trailing" secondItem="1bU-Q9-UvN" secondAttribute="trailing" id="oOC-rU-YG2"/>
                                         </constraints>
+                                        <connections>
+                                            <outlet property="movieThumbNailImage" destination="1bU-Q9-UvN" id="XeH-rf-i6H"/>
+                                            <outlet property="movieTitle" destination="don-xN-PNb" id="fLv-Rz-ehN"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>

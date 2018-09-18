@@ -8,23 +8,51 @@
 
 import UIKit
 
-class HomeViewController: UIViewController, UICollectionViewDelegate,UICollectionViewDataSource{
+class HomeViewController: UIViewController, UICollectionViewDelegate,UICollectionViewDataSource,MovieListViewModelDelegate{
 
 
     @IBOutlet weak var movieHomeCollectionView: UICollectionView!
+    var MovieListViewModelObject = HomeViewModel()
+    var movieListArray = [MovieHome]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        MovieListViewModelObject.callMovieListAPI()
         movieHomeCollectionView.delegate = self
         movieHomeCollectionView.dataSource = self
+        MovieListViewModelObject.movieListViewModelDelegate = self
+        
 
     }
     
+    func movieListViewModel(movieList:[MovieHome]){
+        for movie in movieList{
+        print(movie.thumbNailImageLink!)
+        print(movie.title!)
+        }
+        movieListArray = [MovieHome]()
+        movieListArray = movieList
+        DispatchQueue.main.async {
+            self.movieHomeCollectionView.reloadData()
+        }
+        // movieHomeCollectionView.reloadData()
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
-        return 20
+        return movieListArray.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell{
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! MovieCollectionCell
+        cell.movieTitle.text = movieListArray[indexPath.row].title
+        
+        let imageUrl = "https://image.tmdb.org/t/p/w780" + movieListArray[indexPath.row].thumbNailImageLink!
+        let url = URL(string: imageUrl)
+        let data = try? Data(contentsOf: url!)
+        if let imageData = data{
+            DispatchQueue.main.async {
+                cell.movieThumbNailImage.image = UIImage(data: imageData)
+            }
+        }
         return cell
     }
     
